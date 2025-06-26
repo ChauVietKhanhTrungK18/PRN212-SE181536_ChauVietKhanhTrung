@@ -1,0 +1,128 @@
+﻿<Window x:Class="ChauVietKhanhTrungWPF.ProductPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Product Management" Height="550" Width="950"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header với Search và Back -->
+        <Border Grid.Row="0" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="15">
+            <DockPanel LastChildFill="False">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <TextBlock Text="Search Product:" VerticalAlignment="Center" Margin="0,0,10,0" FontWeight="Medium"/>
+                    <TextBox x:Name="SearchTextBox" Width="250" Height="32" Padding="8"
+                             BorderBrush="#D0D0D0" BorderThickness="1" VerticalContentAlignment="Center"/>
+                    <Button Content="Search" Width="80" Height="32" Margin="10,0,0,0"
+                            Background="#007ACC" Foreground="White" BorderThickness="0"
+                            Click="SearchButton_Click" Cursor="Hand"/>
+                </StackPanel>
+                <Button Content="Back to Admin" Width="120" Height="32"
+                        Background="#6C757D" Foreground="White" BorderThickness="0"
+                        Click="BackToAdmin_Click" Cursor="Hand"
+                        HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+            </DockPanel>
+        </Border>
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="ProductDataGrid" Grid.Row="1" AutoGenerateColumns="False"
+                  Margin="15" Background="White" GridLinesVisibility="Horizontal"
+                  HeadersVisibility="Column" CanUserAddRows="False"
+                  AlternatingRowBackground="#F9F9F9" RowHeight="30">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ProductID}" Width="50"/>
+                <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="*"/>
+                <DataGridTextColumn Header="Category ID" Binding="{Binding CategoryID}" Width="80"/>
+                <DataGridTextColumn Header="Unit Price" Binding="{Binding UnitPrice}" Width="100"/>
+                <DataGridTextColumn Header="Units In Stock" Binding="{Binding UnitsInStock}" Width="110"/>
+                <DataGridTextColumn Header="Quantity Per Unit" Binding="{Binding QuantityPerUnit}" Width="140"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Bottom Panel với các nút -->
+        <Border Grid.Row="2" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0" Padding="15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Add New Product" Width="140" Height="35" Margin="0,0,10,0"
+                        Background="#28A745" Foreground="White" BorderThickness="0"
+                        Click="AddProduct_Click" Cursor="Hand"/>
+                <Button Content="Edit Product" Width="120" Height="35" Margin="0,0,10,0"
+                        Background="#FFC107" Foreground="Black" BorderThickness="0"
+                        Click="EditProduct_Click" Cursor="Hand"/>
+                <Button Content="Delete Product" Width="130" Height="35"
+                        Background="#DC3545" Foreground="White" BorderThickness="0"
+                        Click="DeleteProduct_Click" Cursor="Hand"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Popup Dialog -->
+        <Popup x:Name="ProductPopup"
+               PlacementTarget="{Binding ElementName=ProductDataGrid}"
+               Placement="Center"
+               IsOpen="False"
+               StaysOpen="False"
+               AllowsTransparency="True">
+            <Border BorderBrush="#D0D0D0" BorderThickness="1" Background="White"
+                    CornerRadius="8">
+                <Border.Effect>
+                    <DropShadowEffect Color="Gray" BlurRadius="10" ShadowDepth="3" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid Width="420" Height="420" Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Title -->
+                    <TextBlock Grid.Row="0" Text="Product Information"
+                               FontSize="16" FontWeight="Bold"
+                               HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                    <!-- Product Name -->
+                    <Label Grid.Row="1" Content="Product Name:" FontWeight="Medium" Padding="0,0,0,5"/>
+                    <TextBox x:Name="ProductNameTextBox" Grid.Row="1" Height="32" Margin="0,25,0,10"
+                             Padding="8" BorderBrush="#D0D0D0" BorderThickness="1"/>
+
+                    <!-- Category ID -->
+                    <Label Grid.Row="2" Content="Category ID:" FontWeight="Medium" Padding="0,0,0,5"/>
+                    <TextBox x:Name="CategoryIDTextBox" Grid.Row="2" Height="32" Margin="0,25,0,10"
+                             Padding="8" BorderBrush="#D0D0D0" BorderThickness="1"/>
+
+                    <!-- Unit Price -->
+                    <Label Grid.Row="3" Content="Unit Price:" FontWeight="Medium" Padding="0,0,0,5"/>
+                    <TextBox x:Name="UnitPriceTextBox" Grid.Row="3" Height="32" Margin="0,25,0,10"
+                             Padding="8" BorderBrush="#D0D0D0" BorderThickness="1"/>
+
+                    <!-- Units In Stock -->
+                    <Label Grid.Row="4" Content="Units In Stock:" FontWeight="Medium" Padding="0,0,0,5"/>
+                    <TextBox x:Name="UnitsInStockTextBox" Grid.Row="4" Height="32" Margin="0,25,0,10"
+                             Padding="8" BorderBrush="#D0D0D0" BorderThickness="1"/>
+
+                    <!-- Quantity Per Unit -->
+                    <Label Grid.Row="5" Content="Quantity Per Unit:" FontWeight="Medium" Padding="0,0,0,5"/>
+                    <TextBox x:Name="QuantityPerUnitTextBox" Grid.Row="5" Height="32" Margin="0,25,0,15"
+                             Padding="8" BorderBrush="#D0D0D0" BorderThickness="1"/>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                        <Button Content="Save" Width="80" Height="35" Margin="0,0,15,0"
+                                Background="#007ACC" Foreground="White" BorderThickness="0"
+                                Click="SaveButton_Click" Cursor="Hand"/>
+                        <Button Content="Cancel" Width="80" Height="35"
+                                Background="#6C757D" Foreground="White" BorderThickness="0"
+                                Click="CancelButton_Click" Cursor="Hand"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>
